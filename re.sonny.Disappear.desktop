@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Disappear
+Comment=Free your desktop from cumbersome apps
+Categories=Utility;DesktopSettings;GNOME;GTK;
+Exec=re.sonny.Disappear
+Icon=re.sonny.Disappear
+Terminal=false
+Type=Application
