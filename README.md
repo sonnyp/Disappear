@@ -1,4 +1,4 @@
-<img style="vertical-align: middle;" src="./re.sonny.Disappear.svg" width="120" height="120">
+<img style="vertical-align: middle;" src="icon/icon.svg" width="120" height="120">
 
 # Disappear
 
@@ -12,12 +12,21 @@ cd disappear
 sudo ./install.sh
 ```
 
+## Update
+
+```sh
+cd disappear
+sudo ./uninstall.sh
+git pull
+sudo ./install.sh
+```
+
 ## Uninstall
 
 ```sh
+cd disappear
 sudo ./uninstall.sh
 ```
-
 
 <!-- ## Development
 
