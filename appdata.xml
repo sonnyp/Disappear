@@ -13,7 +13,7 @@
       <image type="source">https://raw.githubusercontent.com/sonnyp/disappear/master/screenshot.png</image>
     </screenshot>
   </screenshots> -->
-  <launchable type="desktop-id">re.sonny.Tangram.desktop</launchable>
+  <launchable type="desktop-id">re.sonny.Disappear.desktop</launchable>
   <url type="homepage">https://github.com/sonnyp/disappear</url>
   <url type="bugtracker">https://github.com/sonnyp/disappear/issues</url>
   <update_contact>sonny@fastmail.net</update_contact>
