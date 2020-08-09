@@ -180,6 +180,51 @@ function editDesktopEntry(app, hide) {
       keyFile.save_to_file(path);
     // }
   }
+
+  updateDesktopDatabase()
 }
 
+function updateDesktopDatabase() {
+  const [result, foo] = GLib.spawn_command_line_sync(`
+  
+  busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s '
+    const Shell = imports.gi.Shell;
+
+    Shell.AppSystem.get_default().install_changed()
+
+    log("foo")
+'
+  `)
+
+  log(result)
+  log(foo)
+
+  // log(result)
+  // log(foo)
+
+  // const [result2, foo2] = GLib.spawn_command_line_sync('update-desktop-database ~/.local/share/applications')
+
+  // log(result2)
+  // log(foo2)
+  // `
+  // /usr/bin/flatpak-spawn --host update-desktop-database
+  // /usr/bin/flatpak-spawn --host update-desktop-database`
+
+//   const Gio = imports.gi.Gio;
+
+// const MyIface = '<interface name="org.gnome.Shell"><method name="Eval" /></interface>';
+// const MyProxy = Gio.DBusProxy.makeProxyWrapper(MyIface);
+
+// let instance = new MyProxy(Gio.DBus.session, '',
+// '/org/example/Path');
+
+//   busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s '
+//     const Shell = imports.gi.Shell;
+
+//     Shell.AppSystem.get_default().emit("installed-changed")
+
+//     log("foo")
+// '
+}
+ 
 application.run(ARGV);

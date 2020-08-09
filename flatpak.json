@@ -6,9 +6,10 @@
     "command": "re.sonny.Disappear",
     "finish-args": [
         // "--share=ipc",
-        "--socket=fallback-x11",
+        // "--socket=fallback-x11",
         "--socket=wayland",
-        "--filesystem=home"
+        "--filesystem=home",
+        "--talk-name=org.freedesktop.Flatpak"
     ],
     "modules": [
         {
@@ -16,10 +17,10 @@
             "buildsystem": "simple",
             "build-commands" : [
                 "install -D disappear.js /app/bin/re.sonny.Disappear",
-                "install -D re.sonny.Disappear.desktop /app/share/applications/re.sonny.Disappear.desktop",
-                "install -D re.sonny.Disappear.appdata.xml /app/share/metainfo/re.sonny.Disappear.appdata.xml",
-                "install -D re.sonny.Disappear.svg /app/share/icons/hicolor/scalable/apps/re.sonny.Disappear.svg",
-                "install -D re.sonny.Disappear-symbolic.svg /app/share/icons/hicolor/symbolic/apps/re.sonny.Disappear-symbolic.svg"
+                "install -D disappear.desktop /app/share/applications/re.sonny.Disappear.desktop",
+                "install -D appdata.xml /app/share/metainfo/re.sonny.Disappear.appdata.xml",
+                "install -D icon.svg /app/share/icons/hicolor/scalable/apps/re.sonny.Disappear.svg",
+                "install -D symbolic.svg /app/share/icons/hicolor/symbolic/apps/re.sonny.Disappear-symbolic.svg"
             ],
             "post-install": [
                 "gtk-update-icon-cache --force --ignore-theme-index ${FLATPAK_DEST}/share/icons/hicolor"
@@ -31,19 +32,19 @@
                 },
                 {
                     "type": "file",
-                    "path": "re.sonny.Disappear.desktop"
+                    "path": "disappear.desktop"
                 },
                 {
                     "type": "file",
-                    "path": "re.sonny.Disappear.appdata.xml"
+                    "path": "appdata.xml"
                 },
                 {
                     "type": "file",
-                    "path": "re.sonny.Disappear.svg"
+                    "path": "icon/icon.svg"
                 },
                 {
                     "type": "file",
-                    "path": "re.sonny.Disappear-symbolic.svg"
+                    "path": "icon/symbolic.svg"
                 }
             ]
         }
