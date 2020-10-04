@@ -115,11 +115,19 @@ function Row({ name, id, hidden, icon }) {
 
   const hbox = new Gtk.Box({
     orientation: Gtk.Orientation.HORIZONTAL,
-    spacing: 50,
+    spacing: 10,
   });
   row.add(hbox);
 
   // first col
+  const slider = new Gtk.Switch();
+  slider.state = hidden;
+  slider.id = id;
+  hbox.pack_start(slider, false, true, 10);
+  sliders.set(id, slider);
+  slider.connect("notify::active", onSwitchActivate);
+
+  // second col
   const image = new Gtk.Image({
     gicon: icon,
     icon_size: 4,
@@ -127,17 +135,9 @@ function Row({ name, id, hidden, icon }) {
   });
   hbox.pack_start(image, false, true, 0);
 
-  // second col
+  // third col
   const label = new Gtk.Label({ label: name, xalign: 0 });
   hbox.pack_start(label, true, true, 0);
-
-  // third col
-  const slider = new Gtk.Switch();
-  slider.state = hidden;
-  slider.id = id;
-  hbox.pack_start(slider, false, true, 10);
-  sliders.set(id, slider);
-  slider.connect("notify::active", onSwitchActivate);
 
   return row;
 }
@@ -173,58 +173,14 @@ function editDesktopEntry(app, hide) {
   } else {
     keyFile.set_boolean("Desktop Entry", "NoDisplay", false);
 
-
     // if (keyFile.get_string("Desktop Entry", "Disappear")) {
-      // GLib.unlink(path);
+    // GLib.unlink(path);
     // } else {
-      keyFile.save_to_file(path);
+    keyFile.save_to_file(path);
     // }
   }
 
-  updateDesktopDatabase()
+  // updateDesktopDatabase();
 }
 
-function updateDesktopDatabase() {
-//   const [result, foo] = GLib.spawn_command_line_sync(`
-  
-//   busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s '
-//     const Shell = imports.gi.Shell;
-
-//     Shell.AppSystem.get_default().install_changed()
-
-//     log("foo")
-// '
-//   `)
-
-//   log(result)
-//   log(foo)
-
-  // log(result)
-  // log(foo)
-
-  const [result2, foo2] = GLib.spawn_command_line_sync('update-desktop-database ~/.local/share/applications')
-
-  log(result2)
-  log(foo2)
-  // `
-  // /usr/bin/flatpak-spawn --host update-desktop-database
-  // /usr/bin/flatpak-spawn --host update-desktop-database`
-
-//   const Gio = imports.gi.Gio;
-
-// const MyIface = '<interface name="org.gnome.Shell"><method name="Eval" /></interface>';
-// const MyProxy = Gio.DBusProxy.makeProxyWrapper(MyIface);
-
-// let instance = new MyProxy(Gio.DBus.session, '',
-// '/org/example/Path');
-
-//   busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s '
-//     const Shell = imports.gi.Shell;
-
-//     Shell.AppSystem.get_default().emit("installed-changed")
-
-//     log("foo")
-// '
-}
- 
 application.run(ARGV);

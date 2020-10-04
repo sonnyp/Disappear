@@ -7,15 +7,15 @@ Free your desktop from cumbersome apps.
 ## Install
 
 ```sh
-git clone https://github.com/sonnyp/disappear.git
-cd disappear
+git clone https://github.com/sonnyp/Disappear.git
+cd Disappear
 sudo ./install.sh
 ```
 
 ## Update
 
 ```sh
-cd disappear
+cd Disappear
 sudo ./uninstall.sh
 git pull
 sudo ./install.sh
@@ -31,8 +31,8 @@ sudo ./uninstall.sh
 <!-- ## Development
 
 ```sh
-git clone https://github.com/sonnyp/disappear.git
-cd disappear
+git clone https://github.com/sonnyp/Disappear.git
+cd Disappear
 flatpak-builder --user --install-deps-from=flathub --force-clean --install build flatpak.json
 ``` -->
 

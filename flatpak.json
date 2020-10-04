@@ -5,8 +5,8 @@
     "sdk": "org.gnome.Sdk",
     "command": "re.sonny.Disappear",
     "finish-args": [
-        // "--share=ipc",
-        // "--socket=fallback-x11",
+        "--share=ipc",
+        "--socket=fallback-x11",
         "--socket=wayland",
         "--filesystem=home",
         "--talk-name=org.freedesktop.Flatpak"
