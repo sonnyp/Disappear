@@ -18,6 +18,7 @@
 imports.gi.versions.Gtk = "3.0";
 
 const { Gtk, GLib, Gio } = imports.gi;
+const ByteArray = imports.byteArray;
 
 let search_results = null;
 const sliders = new Map();
