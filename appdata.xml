@@ -4,9 +4,9 @@
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>Disappear</name>
-  <summary>Free your desktop from cumbersome apps</summary>
+  <summary>Free your launcher from cumbersome apps</summary>
   <description>
-    <p>Disappear allows you to hide any application from your list of applications.</p>
+    <p>Disappear is a simple program to hide (or show) applications from your launcher.</p>
   </description>
     <!-- <screenshots>
     <screenshot type="default">

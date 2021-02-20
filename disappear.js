@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-imports.gi.versions.Gtk = "3.0";
+imports.gi.versions.Gtk = "4.0";
 
 const { Gtk, GLib, Gio } = imports.gi;
 const ByteArray = imports.byteArray;
@@ -28,13 +28,14 @@ const application = new Gtk.Application({
   application_id: "re.sonny.Disappear",
   flags: Gio.ApplicationFlags.FLAGS_NONE,
 });
+
 const title = "Disappear";
 GLib.set_prgname(title);
 
 let window;
 
 application.connect("activate", () => {
-  window.show_all();
+  window.present();
 });
 application.connect("startup", () => {
   window = buildWindow();
@@ -43,17 +44,17 @@ application.connect("startup", () => {
 function buildWindow() {
   window = new Gtk.ApplicationWindow({
     application,
-    default_height: 300,
-    default_width: 720,
-    window_position: Gtk.WindowPosition.CENTER,
+    default_height: 720,
+    default_width: 300,
   });
 
   const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
-  const searchEntry = new Gtk.SearchEntry();
 
-  box.add(searchEntry);
+  const searchEntry = new Gtk.SearchEntry();
+  box.append(searchEntry);
 
   const { listBox, scrolledWindow } = List();
+  box.append(scrolledWindow);
 
   Gio.AppInfo.get_all()
     .map((app) => {
@@ -61,7 +62,7 @@ function buildWindow() {
       return {
         name: app.get_name(),
         id: app.get_id(),
-        hidden: !app.should_show(),
+        should_show: app.should_show(),
         icon: app.get_icon(),
       };
     })
@@ -69,10 +70,8 @@ function buildWindow() {
       return a.name.localeCompare(b.name);
     })
     .forEach((app) => {
-      listBox.add(Row(app));
+      listBox.append(Row(app));
     });
-
-  box.pack_start(scrolledWindow, true, true, 0);
 
   searchEntry.connect("search-changed", () => {
     const value = searchEntry.text;
@@ -80,13 +79,15 @@ function buildWindow() {
     listBox.invalidate_filter();
   });
 
-  window.add(box);
+  window.set_child(box);
 
   return window;
 }
 
 function List() {
-  const scrolledWindow = new Gtk.ScrolledWindow();
+  const scrolledWindow = new Gtk.ScrolledWindow({
+    vexpand: true
+  });
 
   const listBox = new Gtk.ListBox({
     selection_mode: Gtk.SelectionMode.NONE,
@@ -101,12 +102,12 @@ function List() {
     onRowActivated(row.id);
   });
 
-  scrolledWindow.add(listBox);
+  scrolledWindow.set_child(listBox);
 
   return { scrolledWindow, listBox };
 }
 
-function Row({ name, id, hidden, icon }) {
+function Row({ name, id, should_show, icon }) {
   const row = new Gtk.ListBoxRow({
     activatable: true,
   });
@@ -118,27 +119,27 @@ function Row({ name, id, hidden, icon }) {
     orientation: Gtk.Orientation.HORIZONTAL,
     spacing: 10,
   });
-  row.add(hbox);
+  row.set_child(hbox);
 
   // first col
   const slider = new Gtk.Switch();
-  slider.state = hidden;
+  slider.state = should_show;
   slider.id = id;
-  hbox.pack_start(slider, false, true, 10);
+  slider.valign = Gtk.Align.CENTER;
+  hbox.append(slider);
   sliders.set(id, slider);
   slider.connect("notify::active", onSwitchActivate);
 
   // second col
   const image = new Gtk.Image({
     gicon: icon,
-    icon_size: 4,
-    pixel_size: 32,
+    // pixel_size: 32,
   });
-  hbox.pack_start(image, false, true, 0);
+  hbox.append(image);
 
   // third col
   const label = new Gtk.Label({ label: name, xalign: 0 });
-  hbox.pack_start(label, true, true, 0);
+  hbox.append(label);
 
   return row;
 }
@@ -153,7 +154,7 @@ function onSwitchActivate(slider) {
   editDesktopEntry(app, slider.active);
 }
 
-function editDesktopEntry(app, hide) {
+function editDesktopEntry(app, show) {
   const keyFile = new GLib.KeyFile();
   const path = `${GLib.get_user_data_dir()}/applications/${app.get_id()}`;
 
@@ -168,17 +169,16 @@ function editDesktopEntry(app, hide) {
     keyFile.set_string("Desktop Entry", "Disappear", "1.0");
   }
 
-  if (hide) {
-    keyFile.set_boolean("Desktop Entry", "NoDisplay", true);
-    keyFile.save_to_file(path);
-  } else {
+  if (show) {
     keyFile.set_boolean("Desktop Entry", "NoDisplay", false);
-
     // if (keyFile.get_string("Desktop Entry", "Disappear")) {
     // GLib.unlink(path);
     // } else {
     keyFile.save_to_file(path);
     // }
+  } else {
+    keyFile.set_boolean("Desktop Entry", "NoDisplay", true);
+    keyFile.save_to_file(path);
   }
 
   // updateDesktopDatabase();

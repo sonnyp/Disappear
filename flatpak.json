@@ -1,52 +1,52 @@
 {
-    "app-id": "re.sonny.Disappear",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "3.36",
-    "sdk": "org.gnome.Sdk",
-    "command": "re.sonny.Disappear",
-    "finish-args": [
-        "--share=ipc",
-        "--socket=fallback-x11",
-        "--socket=wayland",
-        "--filesystem=home",
-        "--talk-name=org.freedesktop.Flatpak"
-    ],
-    "modules": [
+  "app-id": "re.sonny.Disappear",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "master",
+  "sdk": "org.gnome.Sdk",
+  "command": "re.sonny.Disappear",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--filesystem=xdg-data/applications",
+    "--talk-name=org.freedesktop.Flatpak"
+  ],
+  "modules": [
+    {
+      "name": "disappear",
+      "buildsystem": "simple",
+      "build-commands": [
+        "install -D disappear.js /app/bin/re.sonny.Disappear",
+        "install -D disappear.desktop /app/share/applications/re.sonny.Disappear.desktop",
+        "install -D appdata.xml /app/share/metainfo/re.sonny.Disappear.appdata.xml",
+        "install -D icon.svg /app/share/icons/hicolor/scalable/apps/re.sonny.Disappear.svg",
+        "install -D symbolic.svg /app/share/icons/hicolor/symbolic/apps/re.sonny.Disappear-symbolic.svg"
+      ],
+      "post-install": [
+        "gtk-update-icon-cache --force --ignore-theme-index ${FLATPAK_DEST}/share/icons/hicolor"
+      ],
+      "sources": [
         {
-            "name": "disappear",
-            "buildsystem": "simple",
-            "build-commands" : [
-                "install -D disappear.js /app/bin/re.sonny.Disappear",
-                "install -D disappear.desktop /app/share/applications/re.sonny.Disappear.desktop",
-                "install -D appdata.xml /app/share/metainfo/re.sonny.Disappear.appdata.xml",
-                "install -D icon.svg /app/share/icons/hicolor/scalable/apps/re.sonny.Disappear.svg",
-                "install -D symbolic.svg /app/share/icons/hicolor/symbolic/apps/re.sonny.Disappear-symbolic.svg"
-            ],
-            "post-install": [
-                "gtk-update-icon-cache --force --ignore-theme-index ${FLATPAK_DEST}/share/icons/hicolor"
-            ],
-            "sources": [
-                {
-                    "type": "file",
-                    "path": "disappear.js"
-                },
-                {
-                    "type": "file",
-                    "path": "disappear.desktop"
-                },
-                {
-                    "type": "file",
-                    "path": "appdata.xml"
-                },
-                {
-                    "type": "file",
-                    "path": "icon/icon.svg"
-                },
-                {
-                    "type": "file",
-                    "path": "icon/symbolic.svg"
-                }
-            ]
+          "type": "file",
+          "path": "disappear.js"
+        },
+        {
+          "type": "file",
+          "path": "disappear.desktop"
+        },
+        {
+          "type": "file",
+          "path": "appdata.xml"
+        },
+        {
+          "type": "file",
+          "path": "icon/icon.svg"
+        },
+        {
+          "type": "file",
+          "path": "icon/symbolic.svg"
         }
-    ]
+      ]
+    }
+  ]
 }

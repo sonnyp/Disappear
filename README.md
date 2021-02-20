@@ -2,9 +2,9 @@
 
 # Disappear
 
-Free your desktop from cumbersome apps.
+Free your launcher from cumbersome apps.
 
-Disappear is a simple application to hide/unhide applications from your Linux desktop.
+Disappear is a simple program to hide (or show) applications from your launcher.
 
 ## Install
 
@@ -40,8 +40,8 @@ flatpak-builder --user --install-deps-from=flathub --force-clean --install build
 
 ## Known issues
 
-* It might take a while for your desktop to pickup the update.
-* Reinstalling an application might override your preference.
+- It might take a while for your desktop to pickup the update.
+- Reinstalling an application may override your preference.
 
 ## How does it work
 
@@ -55,4 +55,4 @@ Neither of these is ideal so if you have better ideas please open an issue.
 
 ## Credits
 
-Icon [ripen pear](https://thenounproject.com/icon/1882627/) by [Vectors Market](https://thenounproject.com/vectorsmarket/) from [the Noun Project](https://thenounproject.com/). 
+Icon [ripen pear](https://thenounproject.com/icon/1882627/) by [Vectors Market](https://thenounproject.com/vectorsmarket/) from [the Noun Project](https://thenounproject.com/).
