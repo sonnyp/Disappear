@@ -58,6 +58,10 @@ function buildWindow() {
 
   Gio.AppInfo.get_all()
     .map((app) => {
+      // FIXME: use filename to edit the .desktop file
+      // some .desktop files are in subfolders like anbox or wine
+      // see ~/.local/share/applications/
+      log(app.get_filename())
       apps.set(app.get_id(), app);
       return {
         name: app.get_name(),
